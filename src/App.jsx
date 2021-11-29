@@ -50,6 +50,7 @@ export const App = () => {
     const newTodoList = () => {
       //新しいTodoIdsを配列に追加
       const newTodoId = uuid();
+      console.log(newTodoId);
       const todoTextSaveColumn = todoList.dropZone["column-2"].todoIds;
       todoTextSaveColumn.push(newTodoId);
 
@@ -57,8 +58,11 @@ export const App = () => {
       const newTodo = { id: newTodoId, content: todoText };
       const newTodoTextList = todoList.dragItem;
       newTodoTextList[newTodoId] = newTodo;
+      console.log(todoList);
+      return todoList;
     };
-    setTodoList(() => newTodoList);
+    const newTodoListState = newTodoList();
+    setTodoList(newTodoListState);
     setTodoText("");
   };
 
@@ -72,11 +76,14 @@ export const App = () => {
       destination.droppableId === source.droppableId &&
       destination.index === source.index
     ) {
+      //console.log(destination.droppableId);
+      //console.log(source.droppableId);
       return;
     }
 
     const start = todoList.dropZone[source.droppableId];
     const finish = todoList.dropZone[destination.droppableId];
+    const del = todoList.dropZone[deleteZoneId];
 
     if (start === finish) {
       const newTaskIds = Array.from(start.todoIds);
@@ -98,6 +105,26 @@ export const App = () => {
       setTodoList(newState);
       return;
     }
+    if (finish === del) {
+      //console.log(destination.droppableId);
+      const startTaskIds = Array.from(start.todoIds);
+      startTaskIds.splice(source.index, 1);
+      const newStart = {
+        ...start,
+        todoIds: startTaskIds
+      };
+      //console.log(newStart);
+      const newState = {
+        ...todoList,
+        dropZone: {
+          ...todoList.dropZone,
+          [newStart.id]: newStart
+        }
+      };
+      setTodoList(newState);
+      return;
+    }
+    // console.log(finish);
     const startTaskIds = Array.from(start.todoIds);
     startTaskIds.splice(source.index, 1);
     const newStart = {

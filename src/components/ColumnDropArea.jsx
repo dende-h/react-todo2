@@ -17,20 +17,26 @@ const DropAreaContainer = styled.div`
         break;
     }
   }};
-  min-height: 100px;
+  margin: 1px;
   border-radius: 20px;
-  margin: 4px;
-  padding: 4px;
-  padding-bottom: 50px;
+  width: 220px;
+
   display: flex;
   flex-direction: column;
 `;
 
-const Title = styled.p`
-  overflow-wrap: break-word;
-  margin-top: 5px;
+const Title = styled.h2`
+  padding: 2px;
   font-weight: bold;
   color: rgb(82, 82, 82);
+`;
+
+const DropArea = styled.div`
+  padding: 8px;
+  transition: background-color 0.2s ease;
+  background-color: ${(props) => props.isDraggingOver && "lightpink"};
+  flex-grow: 1;
+  min-height: 100px;
 `;
 
 export const ColumnDropArea = (props) => {
@@ -42,7 +48,7 @@ export const ColumnDropArea = (props) => {
         <Title>{columns.title}</Title>
         <Droppable droppableId={columns.id}>
           {(provided, snapshot) => (
-            <div
+            <DropArea
               ref={provided.innerRef}
               {...provided.droppableProps}
               isDraggingOver={snapshot.isDraggingOver}
@@ -53,7 +59,7 @@ export const ColumnDropArea = (props) => {
                 ) //taskとして受け取った配列をマップ関数で繰り返し呼び出すTodoTextコンポーネントに渡す
               )}
               {provided.placeholder}
-            </div>
+            </DropArea>
           )}
         </Droppable>
       </DropAreaContainer>
