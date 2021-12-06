@@ -7,7 +7,7 @@ export const DragDropObject = {
     "column-2": {
       id: "column-2",
       title: "Todo",
-      todoIds: []
+      todoIds: ["todo-1"]
     },
     "column-3": { id: "column-3", title: "In progress", todoIds: [] },
     "column-4": { id: "column-4", title: "Done", todoIds: [] }

@@ -5,6 +5,9 @@ import { TodoText } from "./TodoText";
 
 export const ColumnDropArea = (props) => {
   const { columns, task } = props;
+  const onTodoDoubleClick = () => {
+    console.log(task);
+  };
 
   return (
     <>
@@ -19,7 +22,12 @@ export const ColumnDropArea = (props) => {
             >
               {task.map(
                 (todo, index) => (
-                  <TodoText key={todo.id} todo={todo} index={index} />
+                  <TodoText
+                    key={todo.id}
+                    todo={todo}
+                    index={index}
+                    onDoubleClick={onTodoDoubleClick}
+                  />
                 ) //taskとして受け取った配列をマップ関数で繰り返し呼び出すTodoTextコンポーネントに渡す
               )}
               {provided.placeholder}
