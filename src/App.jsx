@@ -39,7 +39,7 @@ const DragDropObject = {
 export const App = () => {
   const [todoText, setTodoText] = useState("");
   const [todoList, setTodoList] = useState(DragDropObject);
-  const [inputMessFlag, setInputMessFlag] = useState(false);
+  const [isInvalidInputTodo, setIsInvalidInputTodo] = useState(false);
 
   //inputにtodoの入力を反映させるchange関数
   const onChangeTodoText = (event) => {
@@ -48,7 +48,7 @@ export const App = () => {
   //ボタンをクリックした際に動く関数
   const onClickButton = () => {
     if (todoText === "") {
-      setInputMessFlag(true);
+      setIsInvalidInputTodo(true);
       return;
     } //テキストがなにも入力されてなければメッセフラグがtrueになる
     const newTodoList = () => {
@@ -67,7 +67,7 @@ export const App = () => {
     };
     const newTodoListState = newTodoList();
     setTodoList(newTodoListState);
-    setInputMessFlag(false);
+    setIsInvalidInputTodo(false);
     setTodoText("");
   };
 
@@ -154,19 +154,13 @@ export const App = () => {
   };
 
   //ColumnDeleteAreaコンポーネントに渡すpropsの定義
-  // "column-1"
-  const deleteZoneId = todoList.dropZoneOrder.filter((columnId, index) => {
-    return index === 0;
-  });
+  //ColumnDropAreaコンポーネントに渡すpropsの定義
+  // "column-1"=deleteZonId
+  //["column-2", "column-3", "column-4"]=dolumunsId
+  const [deleteZoneId, ...columnsId] = todoList.dropZoneOrder;
 
   //  { id: "column-1", title: "Delete", todoIds: [] }
   const deleteColumn = todoList.dropZone[deleteZoneId];
-
-  //ColumnDropAreaコンポーネントに渡すpropsの定義のためのフィルター
-  //["column-2", "column-3", "column-4"]
-  const columnsId = todoList.dropZoneOrder.filter((columnsId, index) => {
-    return index !== 0;
-  });
 
   return (
     <>
@@ -176,7 +170,7 @@ export const App = () => {
         onChange={onChangeTodoText}
         onClick={onClickButton}
       />
-      {inputMessFlag && (
+      {isInvalidInputTodo && (
         <p style={{ color: "red" }}>TODOが入力されてません！！</p>
       )}
       <DragDropContext onDragEnd={onDragEnd}>
