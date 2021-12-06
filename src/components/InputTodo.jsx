@@ -18,10 +18,10 @@ const ButtonStyle = styled.button`
   margin-top: 4px;
   background-color: rgb(252, 135, 154);
   color: white;
-  button:hover {
+  &:hover {
     cursor: pointer;
-    background-color: rgb(255, 51, 51);
-    color: black;
+    background-color: orange;
+    color: lightslategray;
   }
 `;
 

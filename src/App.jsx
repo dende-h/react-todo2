@@ -39,6 +39,7 @@ const DragDropObject = {
 export const App = () => {
   const [todoText, setTodoText] = useState("");
   const [todoList, setTodoList] = useState(DragDropObject);
+  const [inputMessFlag, setInputMessFlag] = useState(false);
 
   //inputにtodoの入力を反映させるchange関数
   const onChangeTodoText = (event) => {
@@ -46,7 +47,10 @@ export const App = () => {
   };
   //ボタンをクリックした際に動く関数
   const onClickButton = () => {
-    if (todoText === "") return; //テキストがなにも入力されてなければ何もしない
+    if (todoText === "") {
+      setInputMessFlag(true);
+      return;
+    } //テキストがなにも入力されてなければメッセフラグがtrueになる
     const newTodoList = () => {
       //新しいTodoIdsを配列に追加
       const newTodoId = uuid();
@@ -63,6 +67,7 @@ export const App = () => {
     };
     const newTodoListState = newTodoList();
     setTodoList(newTodoListState);
+    setInputMessFlag(false);
     setTodoText("");
   };
 
@@ -171,6 +176,9 @@ export const App = () => {
         onChange={onChangeTodoText}
         onClick={onClickButton}
       />
+      {inputMessFlag && (
+        <p style={{ color: "red" }}>TODOが入力されてません！！</p>
+      )}
       <DragDropContext onDragEnd={onDragEnd}>
         <ColumnDeleteArea key={deleteZoneId} deleteColumn={deleteColumn} />
 

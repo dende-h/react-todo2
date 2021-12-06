@@ -18,6 +18,7 @@ const Title = styled.h1`
   font-weight: bold;
   color: rgb(82, 82, 82);
   text-align: center;
+  margin-top: 15px;
 `;
 
 export const ColumnDeleteArea = (props) => {
