@@ -1,6 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 
+export const InputTodo = (props) => {
+  const { todoText, onChange, onClick } = props;
+  return (
+    <InputArea>
+      <InputTodoArea
+        value={todoText}
+        onChange={onChange}
+        placeholder="TODOを入力"
+      />
+      <ButtonStyle onClick={onClick}>付箋を貼る</ButtonStyle>
+    </InputArea>
+  );
+};
+
+//スタイル
 const InputArea = styled.div`
   width: 646px;
   height: 40px;
@@ -34,17 +49,3 @@ const InputTodoArea = styled.input`
   margin-top: 4px;
   margin-right: 6px;
 `;
-
-export const InputTodo = (props) => {
-  const { todoText, onChange, onClick } = props;
-  return (
-    <InputArea>
-      <InputTodoArea
-        value={todoText}
-        onChange={onChange}
-        placeholder="TODOを入力"
-      />
-      <ButtonStyle onClick={onClick}>付箋を貼る</ButtonStyle>
-    </InputArea>
-  );
-};

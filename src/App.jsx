@@ -6,37 +6,12 @@ import { ColumnDropArea } from "./components/ColumnDropArea";
 import styled from "styled-components";
 import { ColumnDeleteArea } from "./components/ColumnDeleteArea";
 import { uuid } from "uuidv4";
+import { DragDropObject } from "./DragDropObject";
 
 //import { uuid } from "uuidv4";
 
-const Container = styled.div`
-  width: 200px;
-  display: flex;
-  vertical-align: top;
-  text-align: center;
-`;
-
-const DragDropObject = {
-  dragItem: {
-    "todo-1": { id: "todo-1", content: "todo-sample1" },
-    "todo-2": { id: "todo-2", content: "todo-sample2" },
-    "todo-3": { id: "todo-3", content: "todo-sample3" },
-    "todo-4": { id: "todo-4", content: "todo-sample4" }
-  },
-  dropZone: {
-    "column-1": { id: "column-1", title: "Delete" },
-    "column-2": {
-      id: "column-2",
-      title: "Todo",
-      todoIds: ["todo-1", "todo-2", "todo-3", "todo-4"]
-    },
-    "column-3": { id: "column-3", title: "In progress", todoIds: [] },
-    "column-4": { id: "column-4", title: "Done", todoIds: [] }
-  },
-  dropZoneOrder: ["column-1", "column-2", "column-3", "column-4"]
-};
-
 export const App = () => {
+  //stateの定義
   const [todoText, setTodoText] = useState("");
   const [todoList, setTodoList] = useState(DragDropObject);
   const [isInvalidInputTodo, setIsInvalidInputTodo] = useState(false);
@@ -54,7 +29,7 @@ export const App = () => {
     const newTodoList = () => {
       //新しいTodoIdsを配列に追加
       const newTodoId = uuid();
-      console.log(newTodoId);
+      //console.log(newTodoId);
       const todoTextSaveColumn = todoList.dropZone["column-2"].todoIds;
       todoTextSaveColumn.push(newTodoId);
 
@@ -156,7 +131,7 @@ export const App = () => {
   //ColumnDeleteAreaコンポーネントに渡すpropsの定義
   //ColumnDropAreaコンポーネントに渡すpropsの定義
   // "column-1"=deleteZonId
-  //["column-2", "column-3", "column-4"]=dolumunsId
+  //["column-2", "column-3", "column-4"]=columunsId
   const [deleteZoneId, ...columnsId] = todoList.dropZoneOrder;
 
   //  { id: "column-1", title: "Delete", todoIds: [] }
@@ -213,3 +188,10 @@ export const App = () => {
     </>
   );
 };
+//スタイル
+const Container = styled.div`
+  width: 200px;
+  display: flex;
+  vertical-align: top;
+  text-align: center;
+`;
