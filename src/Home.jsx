@@ -6,8 +6,7 @@ import styled from "styled-components";
 import { ColumnDeleteArea } from "./components/ColumnDeleteArea";
 import { Link } from "react-router-dom";
 import { useDragEnd } from "./Hooks/useDragEnd";
-
-//import { uuid } from "uuidv4";
+import { ReadMe } from "./components/ReadMe";
 
 export const Home = () => {
   const {
@@ -17,7 +16,6 @@ export const Home = () => {
     deleteColumn,
     columnsId
   } = useDragEnd();
-  console.log(todoList);
 
   return (
     <>
@@ -48,21 +46,7 @@ export const Home = () => {
           </Container>
         </main>
       </DragDropContext>
-      <Link to="/todoEdit">Todo編集ページ</Link>
-      <h4>Read me</h4>
-      【主な実装機能】
-      <br />
-      TODO入力フォームにタスクを入力して`付箋を貼る`でTODOエリアに追加
-      <br />
-      作業中はドラッグ＆ドロップでDOINGエリアに付箋を移動
-      <br />
-      終わったタスクはDONEエリアに付箋を移動
-      <br />
-      タスクを消去したい場合はDELETEエリアにドロップで削除
-      <br />
-      タスクを編集したい場合はタスクのテキストをダブルクリックで編集
-      <br />
-      編集後に入力エリア外をクリックすれば編集確定
+      <ReadMe />
     </>
   );
 };

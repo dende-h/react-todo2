@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useInputTodo } from "../Hooks/useInputTodo";
 
-export const InputTodo = (props) => {
+export const InputTodo = () => {
   const { onClick, onChange, todoText, isInvalidInputTodo } = useInputTodo();
 
   return (
