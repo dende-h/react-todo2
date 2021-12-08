@@ -1,13 +1,13 @@
-import React from "react";
+import React, { memo } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import { TodoText } from "./TodoText";
+import { useNavigate } from "react-router-dom";
 
-export const ColumnDropArea = (props) => {
+export const ColumnDropArea = memo((props) => {
   const { columns, task } = props;
-  const onTodoDoubleClick = () => {
-    console.log(task);
-  };
+  const navigate = useNavigate();
+  const useRouteHandleDoubleClick = (url) => navigate(url);
 
   return (
     <>
@@ -26,7 +26,7 @@ export const ColumnDropArea = (props) => {
                     key={todo.id}
                     todo={todo}
                     index={index}
-                    onDoubleClick={onTodoDoubleClick}
+                    onDoubleClick={useRouteHandleDoubleClick}
                   />
                 ) //taskとして受け取った配列をマップ関数で繰り返し呼び出すTodoTextコンポーネントに渡す
               )}
@@ -37,7 +37,7 @@ export const ColumnDropArea = (props) => {
       </DropAreaContainer>
     </>
   );
-};
+});
 
 //スタイル
 const DropAreaContainer = styled.div`

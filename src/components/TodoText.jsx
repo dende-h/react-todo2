@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
 
-export const TodoText = (props) => {
+export const TodoText = memo((props) => {
   const { todo, index, onDoubleClick } = props;
   return (
     <Draggable draggableId={todo.id} index={index}>
@@ -12,14 +12,14 @@ export const TodoText = (props) => {
           {...provided.dragHandleProps}
           ref={provided.innerRef}
           isDragging={snapshot.isDragging}
-          onDoubleClick={onDoubleClick}
+          onDoubleClick={() => onDoubleClick("/todoEdit")}
         >
           {todo.content}
         </TodoTextContainer>
       )}
     </Draggable>
   );
-};
+});
 
 //スタイル
 const TodoTextContainer = styled.div`

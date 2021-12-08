@@ -1,9 +1,9 @@
-import React from "react";
+import React, { memo } from "react";
 import { Droppable } from "react-beautiful-dnd";
 
 import styled from "styled-components";
 
-export const ColumnDeleteArea = (props) => {
+export const ColumnDeleteArea = memo((props) => {
   const { deleteColumn } = props;
 
   return (
@@ -22,7 +22,7 @@ export const ColumnDeleteArea = (props) => {
       </Droppable>
     </>
   );
-};
+});
 
 //スタイル
 const DeleteAreaContainer = styled.div`

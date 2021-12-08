@@ -1,17 +1,24 @@
 import React from "react";
 import styled from "styled-components";
+import { useInputTodo } from "../Hooks/useInputTodo";
 
 export const InputTodo = (props) => {
-  const { todoText, onChange, onClick } = props;
+  const { onClick, onChange, todoText, isInvalidInputTodo } = useInputTodo();
+
   return (
-    <InputArea>
-      <InputTodoArea
-        value={todoText}
-        onChange={onChange}
-        placeholder="TODOを入力"
-      />
-      <ButtonStyle onClick={onClick}>付箋を貼る</ButtonStyle>
-    </InputArea>
+    <>
+      <InputArea>
+        <InputTodoArea
+          value={todoText}
+          onChange={onChange}
+          placeholder="TODOを入力"
+        />
+        <ButtonStyle onClick={onClick}>付箋を貼る</ButtonStyle>
+      </InputArea>
+      {isInvalidInputTodo && (
+        <p style={{ color: "red" }}>TODOが入力されてません！！</p>
+      )}
+    </>
   );
 };
 
