@@ -4,7 +4,6 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { ColumnDropArea } from "./components/ColumnDropArea";
 import styled from "styled-components";
 import { ColumnDeleteArea } from "./components/ColumnDeleteArea";
-import { Link } from "react-router-dom";
 import { useDragEnd } from "./Hooks/useDragEnd";
 import { ReadMe } from "./components/ReadMe";
 
@@ -32,7 +31,6 @@ export const Home = () => {
               const task = columns.todoIds.map(
                 (todoIds) => todoList.dragItem[todoIds]
               );
-              console.log(task);
               //task=[todo-1{...},todo-2{},todo-3{},todo-4{...}] [] [] 3つの配列
               return (
                 <ColumnDropArea

@@ -3,11 +3,10 @@ import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import { TodoText } from "./TodoText";
 import { useNavigate } from "react-router-dom";
+import { useRouteHandleDoubleClick } from "../Hooks/useRouteHndleDoubleClick";
 
 export const ColumnDropArea = memo((props) => {
   const { columns, task } = props;
-  const navigate = useNavigate();
-  const useRouteHandleDoubleClick = (url) => navigate(url);
 
   return (
     <>
@@ -22,12 +21,7 @@ export const ColumnDropArea = memo((props) => {
             >
               {task.map(
                 (todo, index) => (
-                  <TodoText
-                    key={todo.id}
-                    todo={todo}
-                    index={index}
-                    onDoubleClick={useRouteHandleDoubleClick}
-                  />
+                  <TodoText key={todo.id} todo={todo} index={index} />
                 ) //taskとして受け取った配列をマップ関数で繰り返し呼び出すTodoTextコンポーネントに渡す
               )}
               {provided.placeholder}

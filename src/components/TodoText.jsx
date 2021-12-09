@@ -1,9 +1,11 @@
 import React, { memo } from "react";
 import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
+import { useRouteHandleDoubleClick } from "../Hooks/useRouteHndleDoubleClick";
 
 export const TodoText = memo((props) => {
-  const { todo, index, onDoubleClick } = props;
+  const { todo, index } = props;
+  const { onDoubleClick } = useRouteHandleDoubleClick();
   return (
     <Draggable draggableId={todo.id} index={index}>
       {(provided, snapshot) => (
@@ -12,7 +14,7 @@ export const TodoText = memo((props) => {
           {...provided.dragHandleProps}
           ref={provided.innerRef}
           isDragging={snapshot.isDragging}
-          onDoubleClick={() => onDoubleClick("/todoEdit")}
+          onDoubleClick={() => onDoubleClick("/todoEdit", todo)}
         >
           {todo.content}
         </TodoTextContainer>

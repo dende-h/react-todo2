@@ -1,3 +1,8 @@
+import { useLocation } from "react-router-dom";
+
 export const TodoEditPage = () => {
-  return <h1>Todoを編集するページ</h1>;
+  const { state } = useLocation();
+  console.log(state);
+
+  return <h1>{state.content}</h1>;
 };
