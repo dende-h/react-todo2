@@ -48,7 +48,6 @@ export const useDragEnd = () => {
           [newColumn.id]: newColumn
         }
       };
-      console.log(newColumn.id);
 
       setTodoList(newState);
       return;
@@ -73,7 +72,7 @@ export const useDragEnd = () => {
       toast.success("Removed Todo");
       return;
     }
-    console.log(finish);
+
     const startTaskIds = Array.from(start.todoIds);
     startTaskIds.splice(source.index, 1);
     const newStart = {

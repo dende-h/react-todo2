@@ -41,7 +41,7 @@ export const useInputTodo = (isNewText, todoId) => {
           }
         }
       };
-      console.log(newTodoListState);
+
       setTodoList(newTodoListState);
       setTodoText("");
       toast("Add Todo", {
@@ -60,7 +60,7 @@ export const useInputTodo = (isNewText, todoId) => {
         [todoId]: newTodo
       }
     };
-    console.log(newTodoList);
+
     setTodoList(newTodoList);
     setTodoText("");
     toast.success("Successful change of Todo");
