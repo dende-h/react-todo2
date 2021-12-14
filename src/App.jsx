@@ -21,7 +21,7 @@ export const App = () => {
           <Routes>
             <Route path="/">
               <Route path="/" element={<Home />} />
-              <Route path="todoEdit" element={<TodoEditPage />} />
+              <Route path="todoEdit/:id" element={<TodoEditPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

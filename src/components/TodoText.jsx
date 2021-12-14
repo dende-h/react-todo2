@@ -14,7 +14,7 @@ export const TodoText = memo((props) => {
           {...provided.dragHandleProps}
           ref={provided.innerRef}
           isDragging={snapshot.isDragging}
-          onDoubleClick={() => onDoubleClick("/todoEdit", todo)}
+          onDoubleClick={() => onDoubleClick(`/todoEdit/${todo.id}`, todo)}
         >
           {todo.content}
         </TodoTextContainer>

@@ -1,12 +1,11 @@
-import React from "react";
 import styled from "styled-components";
-import { v4 } from "uuid";
 import { useInputTodo } from "../Hooks/useInputTodo";
 
-export const InputTodo = () => {
-  const { onClick, onChange, todoText, isInvalidInputTodo } = useInputTodo(
-    true,
-    v4()
+export const TextEditForm = (props) => {
+  const { buttonName, placeholder, message, id } = props;
+  const { onChange, onClick, todoText, isInvalidInputTodo } = useInputTodo(
+    false,
+    id
   );
 
   return (
@@ -15,13 +14,11 @@ export const InputTodo = () => {
         <InputTodoArea
           value={todoText}
           onChange={onChange}
-          placeholder="TODOを入力"
+          placeholder={placeholder}
         />
-        <ButtonStyle onClick={onClick}>付箋を貼る</ButtonStyle>
+        <ButtonStyle onClick={onClick}>{buttonName}</ButtonStyle>
       </InputArea>
-      {isInvalidInputTodo && (
-        <p style={{ color: "red" }}>TODOが入力されてません！！</p>
-      )}
+      {isInvalidInputTodo && <p style={{ color: "red" }}>{message}</p>}
     </>
   );
 };
@@ -30,7 +27,7 @@ export const InputTodo = () => {
 const InputArea = styled.div`
   width: 646px;
   height: 40px;
-  background-color: rgb(252, 235, 170);
+
   text-align: center;
   margin: 4px;
   border-radius: 10px;

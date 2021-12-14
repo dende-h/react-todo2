@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { v4 } from "uuid";
 import { todoListState } from "../components/atoms/todoListState";
 
-export const useInputTodo = () => {
+export const useInputTodo = (isNewText, todoId, result) => {
   const [todoList, setTodoList] = useRecoilState(todoListState);
   const [todoText, setTodoText] = useState("");
   const [isInvalidInputTodo, setIsInvalidInputTodo] = useState(false);
@@ -18,32 +17,49 @@ export const useInputTodo = () => {
       setIsInvalidInputTodo(true);
       return;
     } //テキストがなにも入力されてなければメッセフラグがtrueになる
+    if (isNewText) {
+      //新しいTodoIdsを配列に追加
+      const newTodoId = todoId;
+      //console.log(newTodoId);
+      const todoTextSaveColumn = todoList.dropZone["column-2"].todoIds;
+      const newTodoTextSaveCoumn = [...todoTextSaveColumn, newTodoId];
+      //console.log(newTodoTextSaveCoumn)
 
-    //新しいTodoIdsを配列に追加
-    const newTodoId = v4();
-    //console.log(newTodoId);
-    const todoTextSaveColumn = todoList.dropZone["column-2"].todoIds;
-    const newTodoTextSaveCoumn = [...todoTextSaveColumn, newTodoId];
-    //console.log(newTodoTextSaveCoumn)
+      //新しいdragItemオブジェクトに追加
+      const newTodo = { id: newTodoId, content: todoText };
+      const todoTextList = todoList.dragItem;
+      const newTodoTextList = { ...todoTextList, [newTodoId]: newTodo };
 
-    //新しいdragItemオブジェクトに追加
-    const newTodo = { id: newTodoId, content: todoText };
-    const todoTextList = todoList.dragItem;
-    const newTodoTextList = { ...todoTextList, [newTodoId]: newTodo };
-
-    const newTodoListState = {
-      ...todoList,
-      dragItem: { ...newTodoTextList },
-      dropZone: {
-        ...todoList.dropZone,
-        "column-2": {
-          ...todoList.dropZone["column-2"],
-          todoIds: [...newTodoTextSaveCoumn]
+      const newTodoListState = {
+        ...todoList,
+        dragItem: { ...newTodoTextList },
+        dropZone: {
+          ...todoList.dropZone,
+          "column-2": {
+            ...todoList.dropZone["column-2"],
+            todoIds: [...newTodoTextSaveCoumn]
+          }
         }
+      };
+      console.log(newTodoListState);
+      setTodoList(newTodoListState);
+      setIsInvalidInputTodo(false);
+      setTodoText("");
+      return;
+    }
+
+    const newTodo = { id: todoId, content: todoText };
+
+    const newTodoList = {
+      ...todoList,
+
+      dragItem: {
+        ...todoList.dragItem,
+        [todoId]: newTodo
       }
     };
-    ////console.log(newTodoListState);
-    setTodoList(newTodoListState);
+    console.log(newTodoList);
+    setTodoList(newTodoList);
     setIsInvalidInputTodo(false);
     setTodoText("");
   };

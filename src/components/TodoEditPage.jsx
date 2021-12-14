@@ -1,11 +1,21 @@
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Button } from "./Button";
-import { InputTodo } from "./InputTodo";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import styled from "styled-components";
+import { todoListState } from "./atoms/todoListState";
+import { BsPencilSquare } from "react-icons/bs";
+import { TextEditForm } from "./TextEditForm";
 
 export const TodoEditPage = () => {
-  const { state } = useLocation();
-  const [todo, setTodo] = useState(state);
+  const [todoList, _] = useRecoilState(todoListState);
+  const { id } = useParams();
+  const [fetchId, setFetchId] = useState();
+
+  useEffect(() => {
+    setFetchId(id);
+  }, []);
+
+  const selectedTodo = { ...todoList.dragItem[fetchId] };
   const [isInputTitleIndicateFlag, setIsInputTitleIndicateFlag] = useState(
     false
   );
@@ -13,46 +23,50 @@ export const TodoEditPage = () => {
     false
   );
   const onClickTitleEdit = () => {
-    setIsInputTitleIndicateFlag(true);
+    setIsInputTitleIndicateFlag(!isInputTitleIndicateFlag);
   };
   const onClickDetailEdit = () => {
-    setIsInputDetailIndicateFlag(true);
+    setIsInputDetailIndicateFlag(!isInputDetailIndicateFlag);
   };
-  const onClickTitleSave = () => {
-    setIsInputTitleIndicateFlag(false);
-  };
+
   return (
     <>
       <h1>Details of TODO</h1>
-      <div>Title</div>
-      <div style={{ display: "flex", backgroundColor: "lightgreen" }}>
-        <div>
-          {isInputTitleIndicateFlag ? (
-            <input placeholder="todoのタイトルを入力"></input>
-          ) : (
-            todo.content
-          )}
+      <TodoDetailsContainer>
+        <div style={{ display: "flex", textAlign: "center" }}>
+          <div>{selectedTodo.content}</div>
+          <div>
+            <BsPencilSquare onClick={onClickTitleEdit} />
+          </div>
         </div>
         {isInputTitleIndicateFlag ? (
-          <Button color="lightpink" value="save" onClick={onClickTitleSave} />
-        ) : (
-          <Button
-            color="lightblue"
-            value="Title edit"
-            onClick={onClickTitleEdit}
+          <TextEditForm
+            id={fetchId}
+            buttonName={"変更する"}
+            placeholder={"変更を入力してください"}
+            message={"何も入力されていません!"}
           />
+        ) : (
+          ""
         )}
-      </div>
-
-      <div style={{ display: "flex", backgroundColor: "lightblue" }}>
-        <div>Detail</div>
-        <Button
-          color="lightpink"
-          value="Detail edit"
-          onClick={onClickDetailEdit}
-        />
-      </div>
-      {isInputDetailIndicateFlag ? <div>Detaile入力フォーム</div> : ""}
+        <div style={{ display: "flex" }}>
+          <div>Detail</div>
+          <div>
+            <BsPencilSquare onClick={onClickDetailEdit} />
+          </div>
+        </div>
+        {isInputDetailIndicateFlag ? <div>Detaile入力フォーム</div> : ""}
+      </TodoDetailsContainer>
     </>
   );
 };
+
+const TodoDetailsContainer = styled.div`
+  width: 650px;
+  min-height: 100px;
+  background-color: rgb(252, 235, 170);
+  text-align: center;
+  margin: 4px;
+  border-radius: 10px;
+  padding-top: 3px;
+`;
