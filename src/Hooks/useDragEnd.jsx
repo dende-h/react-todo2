@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { useRecoilState } from "recoil";
 import { todoListState } from "../components/atoms/todoListState";
 
@@ -47,6 +48,8 @@ export const useDragEnd = () => {
           [newColumn.id]: newColumn
         }
       };
+      console.log(newColumn.id);
+
       setTodoList(newState);
       return;
     }
@@ -67,9 +70,10 @@ export const useDragEnd = () => {
         }
       };
       setTodoList(newState);
+      toast.success("Removed Todo");
       return;
     }
-    // console.log(finish);
+    console.log(finish);
     const startTaskIds = Array.from(start.todoIds);
     startTaskIds.splice(source.index, 1);
     const newStart = {
@@ -91,6 +95,15 @@ export const useDragEnd = () => {
       }
     };
     setTodoList(newState);
+    if (finish.id === "column-3") {
+      toast("Todo has started. Do your best!", {
+        icon: "👏"
+      });
+    } else if (finish.id === "column-4") {
+      toast("Todo is complete. Good job!", {
+        icon: "👏"
+      });
+    }
   };
   return { todoList, onDragEnd, deleteZoneId, deleteColumn, columnsId };
 };

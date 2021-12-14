@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { todoListState } from "../components/atoms/todoListState";
+import toast from "react-hot-toast";
 
-export const useInputTodo = (isNewText, todoId, result) => {
+export const useInputTodo = (isNewText, todoId) => {
   const [todoList, setTodoList] = useRecoilState(todoListState);
   const [todoText, setTodoText] = useState("");
-  const [isInvalidInputTodo, setIsInvalidInputTodo] = useState(false);
 
   //inputにtodoの入力を反映させるchange関数
   const onChangeTodoText = (event) => {
@@ -14,7 +14,7 @@ export const useInputTodo = (isNewText, todoId, result) => {
   //ボタンをクリックした際に動く関数
   const onClickButton = () => {
     if (todoText === "") {
-      setIsInvalidInputTodo(true);
+      toast.error("Please input Todo");
       return;
     } //テキストがなにも入力されてなければメッセフラグがtrueになる
     if (isNewText) {
@@ -43,8 +43,10 @@ export const useInputTodo = (isNewText, todoId, result) => {
       };
       console.log(newTodoListState);
       setTodoList(newTodoListState);
-      setIsInvalidInputTodo(false);
       setTodoText("");
+      toast("Add Todo", {
+        icon: "👏"
+      });
       return;
     }
 
@@ -60,11 +62,10 @@ export const useInputTodo = (isNewText, todoId, result) => {
     };
     console.log(newTodoList);
     setTodoList(newTodoList);
-    setIsInvalidInputTodo(false);
     setTodoText("");
+    toast.success("Successful change of Todo");
   };
   return {
-    isInvalidInputTodo,
     todoText,
     onClick: onClickButton,
     onChange: onChangeTodoText

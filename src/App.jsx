@@ -4,6 +4,7 @@ import { TodoEditPage } from "./components/TodoEditPage";
 import { RecoilRoot } from "recoil";
 import { RecoilStatePersist } from "./components/atoms/RecoilStatePersist";
 import { todoListState } from "./components/atoms/todoListState";
+import { Toaster } from "react-hot-toast";
 
 const initializeState = (mutableSnapshot) => {
   const item = localStorage.getItem(todoListState.key);
@@ -15,6 +16,7 @@ const initializeState = (mutableSnapshot) => {
 export const App = () => {
   return (
     <>
+      <Toaster position="top-center" reverseOrder={false} />
       <RecoilRoot initializeState={initializeState}>
         <RecoilStatePersist />
         <BrowserRouter>

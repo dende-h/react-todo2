@@ -44,7 +44,6 @@ export const TodoEditPage = () => {
             id={fetchId}
             buttonName={"変更する"}
             placeholder={"変更を入力してください"}
-            message={"何も入力されていません!"}
           />
         ) : (
           ""

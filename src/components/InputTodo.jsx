@@ -4,10 +4,7 @@ import { v4 } from "uuid";
 import { useInputTodo } from "../Hooks/useInputTodo";
 
 export const InputTodo = () => {
-  const { onClick, onChange, todoText, isInvalidInputTodo } = useInputTodo(
-    true,
-    v4()
-  );
+  const { onClick, onChange, todoText } = useInputTodo(true, v4());
 
   return (
     <>
@@ -19,9 +16,6 @@ export const InputTodo = () => {
         />
         <ButtonStyle onClick={onClick}>付箋を貼る</ButtonStyle>
       </InputArea>
-      {isInvalidInputTodo && (
-        <p style={{ color: "red" }}>TODOが入力されてません！！</p>
-      )}
     </>
   );
 };

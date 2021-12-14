@@ -2,11 +2,8 @@ import styled from "styled-components";
 import { useInputTodo } from "../Hooks/useInputTodo";
 
 export const TextEditForm = (props) => {
-  const { buttonName, placeholder, message, id } = props;
-  const { onChange, onClick, todoText, isInvalidInputTodo } = useInputTodo(
-    false,
-    id
-  );
+  const { buttonName, placeholder, id } = props;
+  const { onChange, onClick, todoText } = useInputTodo(false, id);
 
   return (
     <>
@@ -18,7 +15,6 @@ export const TextEditForm = (props) => {
         />
         <ButtonStyle onClick={onClick}>{buttonName}</ButtonStyle>
       </InputArea>
-      {isInvalidInputTodo && <p style={{ color: "red" }}>{message}</p>}
     </>
   );
 };
