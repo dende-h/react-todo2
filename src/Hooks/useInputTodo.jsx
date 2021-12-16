@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useRecoilState } from "recoil";
 import { todoListState } from "../components/atoms/todoListState";
 import toast from "react-hot-toast";
@@ -8,11 +8,11 @@ export const useInputTodo = (isNewText, todoId) => {
   const [todoText, setTodoText] = useState("");
 
   //inputにtodoの入力を反映させるchange関数
-  const onChangeTodoText = (event) => {
+  const onChangeTodoText = useCallback((event) => {
     setTodoText(event.target.value);
-  };
+  }, []);
   //ボタンをクリックした際に動く関数
-  const onClickButton = () => {
+  const onClickButton = useCallback(() => {
     if (todoText === "") {
       toast.error("Please input Todo");
       return;
@@ -64,7 +64,7 @@ export const useInputTodo = (isNewText, todoId) => {
     setTodoList(newTodoList);
     setTodoText("");
     toast.success("Successful change of Todo");
-  };
+  }, [isNewText, setTodoList, todoId, todoList, todoText]);
   return {
     todoText,
     onClick: onClickButton,

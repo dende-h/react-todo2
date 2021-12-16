@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import toast from "react-hot-toast";
 import { useRecoilState } from "recoil";
 import { todoListState } from "../components/atoms/todoListState";
@@ -13,96 +14,99 @@ export const useDragEnd = () => {
   //  { id: "column-1", title: "Delete", todoIds: [] }
   const deleteColumn = todoList.dropZone[deleteZoneId];
   //DragDropContextのpropsドラッグが終了したときの処理
-  const onDragEnd = (result) => {
-    const { destination, source, draggableId } = result;
-    if (!destination) {
-      return;
-    }
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      //console.log(destination.droppableId);
-      //console.log(source.droppableId);
-      return;
-    }
+  const onDragEnd = useCallback(
+    (result) => {
+      const { destination, source, draggableId } = result;
+      if (!destination) {
+        return;
+      }
+      if (
+        destination.droppableId === source.droppableId &&
+        destination.index === source.index
+      ) {
+        //console.log(destination.droppableId);
+        //console.log(source.droppableId);
+        return;
+      }
 
-    const start = todoList.dropZone[source.droppableId];
-    const finish = todoList.dropZone[destination.droppableId];
-    const del = todoList.dropZone[deleteZoneId];
+      const start = todoList.dropZone[source.droppableId];
+      const finish = todoList.dropZone[destination.droppableId];
+      const del = todoList.dropZone[deleteZoneId];
 
-    if (start === finish) {
-      const newTaskIds = Array.from(start.todoIds);
-      newTaskIds.splice(source.index, 1);
-      newTaskIds.splice(destination.index, 0, draggableId);
+      if (start === finish) {
+        const newTaskIds = Array.from(start.todoIds);
+        newTaskIds.splice(source.index, 1);
+        newTaskIds.splice(destination.index, 0, draggableId);
 
-      const newColumn = {
-        ...start,
-        todoIds: newTaskIds
-      };
+        const newColumn = {
+          ...start,
+          todoIds: newTaskIds
+        };
 
-      const newState = {
-        ...todoList,
-        dropZone: {
-          ...todoList.dropZone,
-          [newColumn.id]: newColumn
-        }
-      };
+        const newState = {
+          ...todoList,
+          dropZone: {
+            ...todoList.dropZone,
+            [newColumn.id]: newColumn
+          }
+        };
 
-      setTodoList(newState);
-      return;
-    }
-    if (finish === del) {
-      //console.log(destination.droppableId);
+        setTodoList(newState);
+        return;
+      }
+      if (finish === del) {
+        //console.log(destination.droppableId);
+        const startTaskIds = Array.from(start.todoIds);
+        startTaskIds.splice(source.index, 1);
+        const newStart = {
+          ...start,
+          todoIds: startTaskIds
+        };
+        //console.log(newStart);
+        const newState = {
+          ...todoList,
+          dropZone: {
+            ...todoList.dropZone,
+            [newStart.id]: newStart
+          }
+        };
+        setTodoList(newState);
+        toast.success("Removed Todo");
+        return;
+      }
+
       const startTaskIds = Array.from(start.todoIds);
       startTaskIds.splice(source.index, 1);
       const newStart = {
         ...start,
         todoIds: startTaskIds
       };
-      //console.log(newStart);
+      const finishTaskIds = Array.from(finish.todoIds);
+      finishTaskIds.splice(destination.index, 0, draggableId);
+      const newFinish = {
+        ...finish,
+        todoIds: finishTaskIds
+      };
       const newState = {
         ...todoList,
         dropZone: {
           ...todoList.dropZone,
-          [newStart.id]: newStart
+          [newStart.id]: newStart,
+          [newFinish.id]: newFinish
         }
       };
       setTodoList(newState);
-      toast.success("Removed Todo");
-      return;
-    }
-
-    const startTaskIds = Array.from(start.todoIds);
-    startTaskIds.splice(source.index, 1);
-    const newStart = {
-      ...start,
-      todoIds: startTaskIds
-    };
-    const finishTaskIds = Array.from(finish.todoIds);
-    finishTaskIds.splice(destination.index, 0, draggableId);
-    const newFinish = {
-      ...finish,
-      todoIds: finishTaskIds
-    };
-    const newState = {
-      ...todoList,
-      dropZone: {
-        ...todoList.dropZone,
-        [newStart.id]: newStart,
-        [newFinish.id]: newFinish
+      if (finish.id === "column-3") {
+        toast("Todo has started. Do your best!", {
+          icon: "👏"
+        });
+      } else if (finish.id === "column-4") {
+        toast("Todo is complete. Good job!", {
+          icon: "👏"
+        });
       }
-    };
-    setTodoList(newState);
-    if (finish.id === "column-3") {
-      toast("Todo has started. Do your best!", {
-        icon: "👏"
-      });
-    } else if (finish.id === "column-4") {
-      toast("Todo is complete. Good job!", {
-        icon: "👏"
-      });
-    }
-  };
+    },
+    [deleteZoneId, todoList, setTodoList]
+  );
   return { onDragEnd, deleteZoneId, deleteColumn, columnsId };
 };
