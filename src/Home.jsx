@@ -12,9 +12,7 @@ import { todoListState } from "./components/atoms/todoListState";
 export const Home = () => {
   console.log("Home");
   const [todoList, setTodoList] = useRecoilState(todoListState);
-  const { onDragEnd, deleteZoneId, deleteColumn, columnsId } = useDragEnd(
-    todoList
-  );
+  const { onDragEnd, deleteZoneId, deleteColumn, columnsId } = useDragEnd();
 
   return (
     <>

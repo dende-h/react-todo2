@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { todoListState } from "../components/atoms/todoListState";
 import toast from "react-hot-toast";

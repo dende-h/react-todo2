@@ -1,15 +1,13 @@
-import { useCallback } from "react";
 import toast from "react-hot-toast";
 import { useRecoilState } from "recoil";
 import { todoListState } from "../components/atoms/todoListState";
 
-export const useDragEnd = (todoList) => {
-  const [_, setTodoList] = useRecoilState(todoListState);
+export const useDragEnd = () => {
+  const [todoList, setTodoList] = useRecoilState(todoListState);
   //ColumnDeleteAreaコンポーネントに渡すpropsの定義
   //ColumnDropAreaコンポーネントに渡すpropsの定義
   // "column-1"=deleteZonId
   //["column-2", "column-3", "column-4"]=columunsId
-  console.log(todoList);
   const [deleteZoneId, ...columnsId] = todoList.dropZoneOrder;
 
   //  { id: "column-1", title: "Delete", todoIds: [] }
