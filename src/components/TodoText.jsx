@@ -4,6 +4,7 @@ import { Draggable } from "react-beautiful-dnd";
 import { useRouteHandleDoubleClick } from "../Hooks/useRouteHndleDoubleClick";
 
 export const TodoText = memo((props) => {
+  console.log("TodoText");
   const { todo, index } = props;
   const { onDoubleClick } = useRouteHandleDoubleClick();
   return (

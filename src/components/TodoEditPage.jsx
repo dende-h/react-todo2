@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
@@ -6,7 +6,8 @@ import { todoListState } from "./atoms/todoListState";
 import { BsPencilSquare } from "react-icons/bs";
 import { TextEditForm } from "./TextEditForm";
 
-export const TodoEditPage = () => {
+export const TodoEditPage = memo(() => {
+  console.log(TodoEditPage);
   const [todoList, _] = useRecoilState(todoListState);
   const { id } = useParams();
   const [fetchId, setFetchId] = useState();
@@ -58,7 +59,7 @@ export const TodoEditPage = () => {
       </TodoDetailsContainer>
     </>
   );
-};
+});
 
 const TodoDetailsContainer = styled.div`
   width: 650px;

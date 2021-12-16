@@ -6,15 +6,15 @@ import styled from "styled-components";
 import { ColumnDeleteArea } from "./components/ColumnDeleteArea";
 import { useDragEnd } from "./Hooks/useDragEnd";
 import { ReadMe } from "./components/ReadMe";
+import { useRecoilState } from "recoil";
+import { todoListState } from "./components/atoms/todoListState";
 
 export const Home = () => {
-  const {
-    todoList,
-    onDragEnd,
-    deleteZoneId,
-    deleteColumn,
-    columnsId
-  } = useDragEnd();
+  console.log("Home");
+  const [todoList, setTodoList] = useRecoilState(todoListState);
+  const { onDragEnd, deleteZoneId, deleteColumn, columnsId } = useDragEnd(
+    todoList
+  );
 
   return (
     <>

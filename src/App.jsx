@@ -14,6 +14,8 @@ const initializeState = (mutableSnapshot) => {
 };
 
 export const App = () => {
+  console.log("App");
+
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />

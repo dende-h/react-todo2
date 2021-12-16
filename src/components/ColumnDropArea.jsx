@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useRouteHandleDoubleClick } from "../Hooks/useRouteHndleDoubleClick";
 
 export const ColumnDropArea = memo((props) => {
+  console.log("ColumnDropArea");
   const { columns, task } = props;
 
   return (

@@ -1,7 +1,9 @@
+import { memo } from "react";
 import styled from "styled-components";
 import { useInputTodo } from "../Hooks/useInputTodo";
 
-export const TextEditForm = (props) => {
+export const TextEditForm = memo((props) => {
+  console.log("TextEditForm");
   const { buttonName, placeholder, id } = props;
   const { onChange, onClick, todoText } = useInputTodo(false, id);
 
@@ -17,7 +19,7 @@ export const TextEditForm = (props) => {
       </InputArea>
     </>
   );
-};
+});
 
 //スタイル
 const InputArea = styled.div`

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import { v4 } from "uuid";
 import { useInputTodo } from "../Hooks/useInputTodo";
 
-export const InputTodo = () => {
+export const InputTodo = memo(() => {
+  console.log("InputTodo");
   const { onClick, onChange, todoText } = useInputTodo(true, v4());
 
   return (
@@ -18,7 +19,7 @@ export const InputTodo = () => {
       </InputArea>
     </>
   );
-};
+});
 
 //スタイル
 const InputArea = styled.div`

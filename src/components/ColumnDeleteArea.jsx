@@ -4,6 +4,7 @@ import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
 export const ColumnDeleteArea = memo((props) => {
+  console.log("columnDeleteArea");
   const { deleteColumn } = props;
 
   return (
