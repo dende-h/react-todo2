@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { todoListState } from "./atoms/todoListState";
 import { BsPencilSquare } from "react-icons/bs";
@@ -8,13 +8,13 @@ import { TextEditForm } from "./TextEditForm";
 
 export const TodoEditPage = memo(() => {
   console.log(TodoEditPage);
-  const [todoList, _] = useRecoilState(todoListState);
+  const todoList = useRecoilValue(todoListState);
   const { id } = useParams();
   const [fetchId, setFetchId] = useState();
 
   useEffect(() => {
     setFetchId(id);
-  }, []);
+  }, [id]);
 
   const selectedTodo = { ...todoList.dragItem[fetchId] };
   const [isInputTitleIndicateFlag, setIsInputTitleIndicateFlag] = useState(

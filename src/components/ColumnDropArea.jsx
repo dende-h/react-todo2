@@ -2,8 +2,6 @@ import React, { memo } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import { TodoText } from "./TodoText";
-import { useNavigate } from "react-router-dom";
-import { useRouteHandleDoubleClick } from "../Hooks/useRouteHndleDoubleClick";
 
 export const ColumnDropArea = memo((props) => {
   console.log("ColumnDropArea");
