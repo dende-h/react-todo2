@@ -31,9 +31,11 @@ const DeleteAreaContainer = styled.div`
   transition: background-color 0.2s ease;
   background-color: ${(props) => props.isDraggingOver && "Red"};
   border-radius: 10px;
-  margin: 2px;
-  width: 650px;
+  margin-top: 1px;
+  margin: 4px;
+  width: full;
   height: 80px;
+  font-size: 30px;
 `;
 
 const Title = styled.h1`

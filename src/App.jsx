@@ -1,10 +1,12 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home } from "./Home";
-import { TodoEditPage } from "./components/TodoEditPage";
+import { BrowserRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+import { Toaster } from "react-hot-toast";
+import { ChakraProvider } from "@chakra-ui/react";
+
+import theme from "./theme/theme";
+import { Router } from "./Router/Router";
 import { RecoilStatePersist } from "./components/atoms/RecoilStatePersist";
 import { todoListState } from "./components/atoms/todoListState";
-import { Toaster } from "react-hot-toast";
 
 const initializeState = (mutableSnapshot) => {
   const item = localStorage.getItem(todoListState.key);
@@ -17,19 +19,14 @@ export const App = () => {
   console.log("App");
 
   return (
-    <>
+    <ChakraProvider theme={theme}>
       <Toaster position="top-center" reverseOrder={false} />
       <RecoilRoot initializeState={initializeState}>
         <RecoilStatePersist />
         <BrowserRouter>
-          <Routes>
-            <Route path="/">
-              <Route path="/" element={<Home />} />
-              <Route path="todoEdit/:id" element={<TodoEditPage />} />
-            </Route>
-          </Routes>
+          <Router />
         </BrowserRouter>
       </RecoilRoot>
-    </>
+    </ChakraProvider>
   );
 };

@@ -1,7 +1,9 @@
+import { Box, Flex, Input } from "@chakra-ui/react";
 import React, { memo } from "react";
 import styled from "styled-components";
 import { v4 } from "uuid";
 import { useInputTodo } from "../Hooks/useInputTodo";
+import { PrimaryButton } from "./button/PrimaryButton";
 
 export const InputTodo = memo(() => {
   console.log("InputTodo");
@@ -9,14 +11,22 @@ export const InputTodo = memo(() => {
 
   return (
     <>
-      <InputArea>
-        <InputTodoArea
+      <Flex
+        bg="rgb(252, 235, 170)"
+        w="full"
+        h="55px"
+        text-align="center"
+        padding="2"
+      >
+        <Input
+          bg="white"
+          variant="outline"
           value={todoText}
           onChange={onChange}
           placeholder="TODOを入力"
         />
-        <ButtonStyle onClick={onClick}>付箋を貼る</ButtonStyle>
-      </InputArea>
+        <PrimaryButton onClick={onClick}>付箋を貼る</PrimaryButton>
+      </Flex>
     </>
   );
 });

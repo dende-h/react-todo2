@@ -47,24 +47,26 @@ const DropAreaContainer = styled.div`
         break;
     }
   }};
-  margin: 1px;
+  width: 100%;
+  margin: 4px;
   border-radius: 20px;
-  width: 220px;
-
-  display: flex;
-  flex-direction: column;
+  min-height: 100px;
 `;
 
 const Title = styled.h2`
   padding: 2px;
   font-weight: bold;
   color: rgb(82, 82, 82);
+  font-size: 22px;
 `;
 
 const DropArea = styled.div`
-  padding: 8px;
+  padding: 20px;
   transition: background-color 0.2s ease;
   background-color: ${(props) => props.isDraggingOver && "lightpink"};
-  flex-grow: 1;
-  min-height: 100px;
+  min-height: 150px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  display: flex;
+  flex-flow: column;
 `;

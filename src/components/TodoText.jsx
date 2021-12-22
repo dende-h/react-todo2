@@ -1,12 +1,12 @@
 import React, { memo } from "react";
 import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
-import { useRouteHandleDoubleClick } from "../Hooks/useRouteHndleDoubleClick";
+import { useRouteHandle } from "../Hooks/useRouteHndleDoubleClick";
 
 export const TodoText = memo((props) => {
   console.log("TodoText");
   const { todo, index } = props;
-  const { onDoubleClick } = useRouteHandleDoubleClick();
+  const { onDoubleClick } = useRouteHandle();
   return (
     <Draggable draggableId={todo.id} index={index}>
       {(provided, snapshot) => (
@@ -32,8 +32,7 @@ const TodoTextContainer = styled.div`
   margin-left: 8px;
   margin-bottom: 8px;
   background-color: ${(props) => (props.isDragging ? "lightgreen" : "white")};
-  width: 150px;
+  min-width: 150px;
   min-height: 20px;
   word-break: break-all;
-  display: flex;
 `;

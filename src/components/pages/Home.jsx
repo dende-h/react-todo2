@@ -1,13 +1,13 @@
-import "./styles.css";
-import { InputTodo } from "./components/InputTodo";
+import { InputTodo } from "../InputTodo";
 import { DragDropContext } from "react-beautiful-dnd";
-import { ColumnDropArea } from "./components/ColumnDropArea";
+import { ColumnDropArea } from "../ColumnDropArea";
 import styled from "styled-components";
-import { ColumnDeleteArea } from "./components/ColumnDeleteArea";
-import { useDragEnd } from "./Hooks/useDragEnd";
-import { ReadMe } from "./components/ReadMe";
+import { ColumnDeleteArea } from "../ColumnDeleteArea";
+import { useDragEnd } from "../../Hooks/useDragEnd";
+import { ReadMe } from "../ReadMe";
 import { useRecoilValue } from "recoil";
-import { todoListState } from "./components/atoms/todoListState";
+import { todoListState } from "../atoms/todoListState";
+import { AspectRatio, Image } from "@chakra-ui/react";
 
 export const Home = () => {
   console.log("Home");
@@ -16,7 +16,6 @@ export const Home = () => {
 
   return (
     <>
-      <h1>TODOボード</h1>
       <InputTodo />
       <DragDropContext onDragEnd={onDragEnd}>
         <ColumnDeleteArea key={deleteZoneId} deleteColumn={deleteColumn} />
@@ -43,12 +42,14 @@ export const Home = () => {
         </main>
       </DragDropContext>
       <ReadMe />
+      <AspectRatio maxW="400px" ratio={4 / 3}>
+        <Image src="../src/image/reactjs.jpg" alt="image" objectFit="cover" />
+      </AspectRatio>
     </>
   );
 };
 //スタイル
 const Container = styled.div`
-  width: 200px;
   display: flex;
   vertical-align: top;
   text-align: center;

@@ -2,9 +2,10 @@ import { memo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { todoListState } from "./atoms/todoListState";
+import { todoListState } from "../atoms/todoListState";
 import { BsPencilSquare } from "react-icons/bs";
-import { TextEditForm } from "./TextEditForm";
+import { TextEditForm } from "../TextEditForm";
+import { TextEditor } from "../TextEditor";
 
 export const TodoEditPage = memo(() => {
   console.log(TodoEditPage);
@@ -55,7 +56,7 @@ export const TodoEditPage = memo(() => {
             <BsPencilSquare onClick={onClickDetailEdit} />
           </div>
         </div>
-        {isInputDetailIndicateFlag ? <div>Detaile入力フォーム</div> : ""}
+        {isInputDetailIndicateFlag ? <TextEditor /> : ""}
       </TodoDetailsContainer>
     </>
   );
