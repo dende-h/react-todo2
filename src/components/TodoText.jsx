@@ -35,4 +35,5 @@ const TodoTextContainer = styled.div`
   min-width: 150px;
   min-height: 20px;
   word-break: break-all;
+  font-size: 20px;
 `;
