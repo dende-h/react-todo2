@@ -1,45 +1,10 @@
-import React from "react";
+import React, { memo } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import { TodoText } from "./TodoText";
 
-const DropAreaContainer = styled.div`
-  background-color: ${(props) => {
-    const columnId = props.color;
-    switch (columnId) {
-      case "column-2":
-        return "rgb(159, 255, 255)";
-      case "column-3":
-        return "rgb(253, 255, 154)";
-      case "column-4":
-        return "rgb(255, 193, 255)";
-      default:
-        break;
-    }
-  }};
-  margin: 1px;
-  border-radius: 20px;
-  width: 220px;
-
-  display: flex;
-  flex-direction: column;
-`;
-
-const Title = styled.h2`
-  padding: 2px;
-  font-weight: bold;
-  color: rgb(82, 82, 82);
-`;
-
-const DropArea = styled.div`
-  padding: 8px;
-  transition: background-color 0.2s ease;
-  background-color: ${(props) => props.isDraggingOver && "lightpink"};
-  flex-grow: 1;
-  min-height: 100px;
-`;
-
-export const ColumnDropArea = (props) => {
+export const ColumnDropArea = memo((props) => {
+  console.log("ColumnDropArea");
   const { columns, task } = props;
 
   return (
@@ -65,4 +30,43 @@ export const ColumnDropArea = (props) => {
       </DropAreaContainer>
     </>
   );
-};
+});
+
+//スタイル
+const DropAreaContainer = styled.div`
+  background-color: ${(props) => {
+    const columnId = props.color;
+    switch (columnId) {
+      case "column-2":
+        return "rgb(159, 255, 255)";
+      case "column-3":
+        return "rgb(253, 255, 154)";
+      case "column-4":
+        return "rgb(255, 193, 255)";
+      default:
+        break;
+    }
+  }};
+  width: 100%;
+  margin: 4px;
+  border-radius: 20px;
+  min-height: 100px;
+`;
+
+const Title = styled.h2`
+  padding: 2px;
+  font-weight: bold;
+  color: rgb(82, 82, 82);
+  font-size: 22px;
+`;
+
+const DropArea = styled.div`
+  padding: 20px;
+  transition: background-color 0.2s ease;
+  background-color: ${(props) => props.isDraggingOver && "lightpink"};
+  min-height: 150px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  display: flex;
+  flex-flow: column;
+`;

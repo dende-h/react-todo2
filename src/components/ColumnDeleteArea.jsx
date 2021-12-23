@@ -1,26 +1,10 @@
-import React from "react";
+import React, { memo } from "react";
 import { Droppable } from "react-beautiful-dnd";
 
 import styled from "styled-components";
 
-const DeleteAreaContainer = styled.div`
-  background-color: rgb(185, 114, 243);
-  transition: background-color 0.2s ease;
-  background-color: ${(props) => props.isDraggingOver && "Red"};
-  border-radius: 10px;
-  margin: 2px;
-  width: 650px;
-  height: 80px;
-`;
-
-const Title = styled.h1`
-  padding: 18px;
-  font-weight: bold;
-  color: rgb(82, 82, 82);
-  text-align: center;
-`;
-
-export const ColumnDeleteArea = (props) => {
+export const ColumnDeleteArea = memo((props) => {
+  console.log("columnDeleteArea");
   const { deleteColumn } = props;
 
   return (
@@ -39,4 +23,25 @@ export const ColumnDeleteArea = (props) => {
       </Droppable>
     </>
   );
-};
+});
+
+//スタイル
+const DeleteAreaContainer = styled.div`
+  background-color: rgb(185, 114, 243);
+  transition: background-color 0.2s ease;
+  background-color: ${(props) => props.isDraggingOver && "Red"};
+  border-radius: 10px;
+  margin-top: 1px;
+  margin: 4px;
+  width: full;
+  height: 80px;
+  font-size: 30px;
+`;
+
+const Title = styled.h1`
+  padding: 18px;
+  font-weight: bold;
+  color: rgb(82, 82, 82);
+  text-align: center;
+  margin-top: 15px;
+`;
